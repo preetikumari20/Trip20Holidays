@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIP20 Holidays - Your Journey Begins Here</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a3d62;
+            --secondary: #2980b9;
+            --accent: #f1c40f;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 61, 98, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: 0.4s;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo img { height: 60px; transition: 0.3s; }
+        .logo img:hover { transform: scale(1.1); }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 500;
+            position: relative;
+            transition: 0.3s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 50%;
+            background: var(--accent);
+            transition: 0.3s;
+            transform: translateX(-50%);
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b2cf?q=80&w=1920') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s;
+        }
+        .hero-content p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            animation: fadeInUp 1.2s;
+        }
+        .btn {
+            background: var(--accent);
+            color: #000;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(241,196,15,0.4); }
+
+        /* Sections */
+        section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; }
+        h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 60px;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .service-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: 0.4s;
+        }
+        .service-card i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* Popular Destinations */
+        .destinations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .dest-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .dest-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+        .dest-card:hover img { transform: scale(1.1); }
+        .dest-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 30px 20px 20px;
+            text-align: center;
+        }
+        .dest-overlay h3 { font-size: 1.8rem; }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--light);
+            text-align: center;
+        }
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .testimonial {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            font-style: italic;
+            display: none;
+        }
+        .testimonial.active { display: block; animation: fadeIn 1s; }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+        form button { width: 100%; padding: 15px; }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); } 70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="trip-removebg-preview.png" alt="TRIP20 Holidays Logo">
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#destinations">Destinations</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>TRIP20 HOLIDAYS</h1>
+            <p>Your trusted partner for Visas, Tours, Immigration & Dream Vacations Worldwide</p>
+            <a href="#contact" class="btn">Get Free Consultation</a>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card"><i class="fas fa-plane-departure"></i><h3>International Tours</h3><p>Europe, Dubai, Maldives, Singapore, Thailand & more</p></div>
+            <div class="service-card"><i class="fas fa-passport"></i><h3>Visa Assistance</h3><p>Tourist, Business, Student & Work Visas</p></div>
+            <div class="service-card"><i class="fas fa-home"></i><h3>Immigration Services</h3><p>Canada, Australia, UK, USA PR Pathways</p></div>
+            <div class="service-card"><i class="fas fa-hotel"></i><h3>Hotel & Flight Booking</h3><p>Best prices guaranteed</p></div>
+            <div class="service-card"><i class="fas fa-heart"></i><h3>Honeymoon Packages</h3><p>Romantic getaways tailored for you</p></div>
+            <div class="service-card"><i class="fas fa-ship"></i><h3>Cruise & Luxury Travel</h3><p>Experience the world in style</p></div>
+            <div class="service-card"><i class="fas fa-briefcase"></i><h3>Corporate Travel</h3><p>Seamless business trips & MICE</p></div>
+            <div class="service-card"><i class="fas fa-shield-alt"></i><h3>Travel Insurance</h3><p>Complete protection for your journey</p></div>
+        </div>
+    </section>
+
+    <!-- Popular Destinations -->
+    <section id="destinations" style="background: #f8f9fa;">
+        <h2>Popular Destinations</h2>
+        <div class="destinations">
+            <div class="dest-card"><img src="zq-lee-DcyL0IoCY0A-unsplash.jpg" alt="Dubai"><div class="dest-overlay"><h3>Dubai</h3></div></div>
+            <div class="dest-card"><img src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=600" alt="Maldives"><div class="dest-overlay"><h3>Maldives</h3></div></div>
+            <div class="dest-card"><img src="europe.jpg" alt="Europe"><div class="dest-overlay"><h3>Europe</h3></div></div>
+            <div class="dest-card"><img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600" alt="Singapore"><div class="dest-overlay"><h3>Singapore</h3></div></div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonial-slider">
+            <div class="testimonial active">"Best travel agency! Highly recommended!"<br><strong>- Trip20Holidays</strong></div>
+            <div class="testimonial">"Our Bali honeymoon was perfectly planned. Thank you TRIP20!"<br><strong>- Priya & Vikram</strong></div>
+            <div class="testimonial">"Professional team, transparent process. Now settled in Australia!"<br><strong>- Mohammed Khan</strong></div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-grid">
+            <div>
+                <p><i class="fas fa-phone"></i>+91-9457069346</p>
+                <p><i class="fas fa-envelope"></i>tripholidays20@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i>  Delhi</p>
+                <p><i class="fab fa-whatsapp"></i> Chat with us 24×7</p>
+            </div>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="tel" placeholder="Your Phone" required>
+                <textarea rows="5" placeholder="Your Message / Requirement" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/9457069346" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <p>&copy; 2025 TRIP20 HOLIDAYS • All Rights Reserved | Your Dream Vacation Starts Here ✈</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Testimonial auto-rotate
+        const testimonials = document.querySelectorAll('.testimonial');
+        let current = 0;
+        setInterval(() => {
+            testimonials[current].classList.remove('active');
+            current = (current + 1) % testimonials.length;
+            testimonials[current].classList.add('active');
+        }, 5000);
+    </script>
+</body>
+</html>
